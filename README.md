@@ -65,7 +65,7 @@ Ejemplo:
 
 <pre class="lang:php decode:true">&lt;?php
 require_once(LIBRARIES . 'Render/Render.php');
-Render\Render;
+use Render\Render;
 
 $actors = array
 (
