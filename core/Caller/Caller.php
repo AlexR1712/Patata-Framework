@@ -1,0 +1,48 @@
+<?php
+namespace Caller;
+require_once('config/Message.php');
+require_once('user/Error.php');
+class Caller
+{	
+	public static function run($class = CLASS_DEFAULT, $method = METHOD_DEFAULT, $arguments = array())
+	{
+		$exit = self::call($class, $method, $arguments);
+		
+		if(!$exit !== true) // Si ocurrio un problema en el llamado
+		{
+			// Si se trata de mostrar un Error o un Estado 404
+			if(($class == ERROR_CONTROLLER && $method == ERROR_METHOD) || ($class == S404_CONTROLLER && $method == S404_METHOD)
+			)
+			{
+				$message = IS_PRODUCTION ? $exit : Message::s404();
+				die($message);
+			}
+			else { Error::show($exit); }
+		}
+	}
+	
+	private static function call($class, $method, $arguments)
+	{
+		$controller = $class . CONTROLLER_SUFFIX;
+		$file = CONTROLLER . $controller . '.php';
+		
+		if(file_exists($file))
+		{
+			require_once($file);
+			if(class_exists($controller))
+			{
+				$reflectionClass = new \ReflectionClass($controller);
+				if($reflectionClass->IsInstantiable())
+				{
+					$instance = new $controller;
+					$data = array($instance, $method);
+					if(is_callable($data)) { return call_user_func_array($data, $arguments); }
+					else { return Message::noCallable($method); }
+				}
+				else { return Message::noInstanciable($controller); }
+			}
+			else { return Message::noClass($controller); }
+		}
+		else { return Message::noFile($file); }
+	}
+}
