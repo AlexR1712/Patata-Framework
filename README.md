@@ -69,10 +69,10 @@ use Render\Render;
 
 $actors = array
 (
-	array('actor_name' => 'PENELOPE', 'last_surname' => 'GUINESS'), 
-	array('actor_name' => 'NICK', 'last_surname' => 'WAHLBERG')
+	array('name' => 'Paulo', 'age' => '22'), 
+	array('name' => 'Nick, 'age' => '28')
 );
-
+$data = array('actors' => $actors);
 $render = new Render($data);
 $render->addTemplate('template.html');
 $render->addStyle('styles.css');
@@ -80,6 +80,21 @@ $render->addScript('scripts.css');
 echo $render;
 </pre>
 
+Luego para su uso simplemente bastaría con colocar en nuestro archivo HTML:
+
+<b>template.html</b>
+<pre>
+&lt;!--{{#actors}}--&gt;
+  <div class="name">{{name}}</div>
+  <div class="age">{{age}}</div>
+&lt;!--{{#actors}}--&gt;
+</pre>
+
+Donde: 
+<b>&lt;!--{{#actors}}--&gt;</b>: Representa el inicio y el cierre de un bucle
+
+
+<h5>Este algoritmo es recursivo por lo cual, si existen subitems no existira ningún problema.</h5>
 <h2>Validator</h2>
 
 <ol>
