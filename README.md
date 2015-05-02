@@ -85,8 +85,8 @@ Luego para su uso simplemente bastaría con colocar en nuestro archivo HTML:
 <b>template.html</b>
 <pre>
 &lt;!--{{#actors}}--&gt;
-  <div class="name">{{name}}</div>
-  <div class="age">{{age}}</div>
+  &lt;div class="name"&gt;{{name}}&lt;/div&gt;
+  &lt;div class="age"&gt;{{age}}&lt;/div&gt;
 &lt;!--{{#actors}}--&gt;
 </pre>
 
@@ -112,7 +112,7 @@ require_once(LIBRARIES . 'Validate/Form.php');
 use Validate\Form;
 
 $form = new Form();
-$form->addValue('name', 'Ronald')->addRule('isD')->addRule('isDate');
+$form->addValue('age', '25')->addRule('isInt')->addRule('isPositive');
 if($form->isValid())
 {
 	
