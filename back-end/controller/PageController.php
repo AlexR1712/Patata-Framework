@@ -23,18 +23,12 @@ class PageController
 	public function showError($error)
 	{
 		$data = array('error' => $error);
-		$render = new Render($data, false);
-		$render->addTemplate(HTML . 'page/error.html');
-		$render->addStyle(CSS . 'page/error.css');
-		echo $render;
+		$this->view->showError($data);
 	}
 	
 	public function s404()
 	{
 		$data = array();
-		$render = new Render($data, false);
-		$render->addTemplate(HTML . 'page/404.html');
-		$render->addStyle(CSS . 'page/404.css');
-		echo $render;
+		$this->view->s404($data);
 	}
 }
