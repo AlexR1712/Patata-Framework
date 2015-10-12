@@ -1,22 +1,32 @@
 <?php
 namespace Render;
-require_once('user/config.php');
-require_once('user/Helper.php');
-require_once('user/Message.php');
-require_once('user/Dictionary.php');
-require_once('user/Error.php');
+require_once('config/config.php');
+require_once('helper/Helper.php');
+require_once('message/Message.php');
+require_once('your_dictionary/Dictionary.php');
+require_once('error/Error.php');
 class Render
 {
+    // Nombre del template
 	private $template = '';
+    // Array asociativo con los datos a reemplazar
 	private $data;
+    // String concatenado de todos los estilos requeridos
 	private $styles = '';
+    // String concatenado de todos los scripts javascript requeridos
 	private $scripts = '';
+    // Booleano el cual indica si se debe agregar el header y footer en la vista
 	private $include_HF;
-	private $pieces = array('simple' => array(), 'loop' =>array());
-	private $tag_open = TAG_OPEN;
-	private $tag_close = TAG_CLOSE;
-	private $tag_loop = TAG_LOOP;
+    
+	private $tag_open = TAG_OPEN; // Variable que indica el valor que debe tener el tag de apertura
+	private $tag_close = TAG_CLOSE; // Variable que indica el valor que debe tener el tag de cierre
+	private $tag_loop = TAG_LOOP; // Variable que indica el valor que debe tener el tag de bucle, que se encuentra a continuacion del tag de apertura
+    
+    // Variable que indica si se debe limpiar o no los valores que no se encuentran descritos en la variable data
 	private $clear = RENDER_CLEAR;
+    
+    // Variable interna
+	private $pieces = array('simple' => array(), 'loop' =>array());
 	
 	public function __construct($data = array(), $include_HF = INCLUDE_HF)
 	{

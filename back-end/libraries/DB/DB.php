@@ -1,8 +1,8 @@
 <?php
 namespace DB;
-require_once('user/config.php');
-require_once('user/Error.php');
-require_once('user/Message.php');
+require_once('config/config.php');
+require_once('error/Error.php');
+require_once('message/Message.php');
 class DB
 {
 	private $db;
