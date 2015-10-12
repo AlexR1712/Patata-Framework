@@ -25,7 +25,8 @@ class Form
 				$this->valid = false;
 				$name = $element->getName();
 				$messages = $element->getMessages();
-				$this->messages[$name] = $messages;
+				//$this->messages[$name] = $messages;
+                array_push($this->messages, array('name' => $name, 'messages' => $messages));
 			}
 		}
 	}

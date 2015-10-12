@@ -1,8 +1,8 @@
 <?php
 namespace Validate;
-require_once('/../user/Rule.php');
-require_once('/../user/Message.php');
-require_once('/../user/Error.php');
+require_once('/../rule/Rule.php');
+require_once('/../message/Message.php');
+require_once('/../error/Error.php');
 require_once('Helper.php');
 class Element
 {
@@ -23,7 +23,7 @@ class Element
 		if(Helper::existsRule($type))
 		{
 			$result = call_user_func_array(array(__NAMESPACE__ . '\Rule', $type), $arguments);
-			if(!$result) { $this->valid = false; array_push($this->messages, Message::get($type)); }
+			if(!$result) { $this->valid = false; array_push($this->messages, array('message' => Message::get($type))); }
 		}
 		else { Error::show(Message::noRule($type)); }
 		

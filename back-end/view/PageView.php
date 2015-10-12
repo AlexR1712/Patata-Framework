@@ -4,6 +4,10 @@ use Render\Render;
 
 class PageView
 {
+    private $html;
+    private $css;
+    private $js;
+    
 	public function index($data = array())
 	{
 		$render = new Render($data, true);
