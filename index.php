@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+error_reporting(E_ALL); // Borrar luego
 
 require_once('config.php');
 require_once('config_core.php');

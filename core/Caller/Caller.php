@@ -1,26 +1,28 @@
 <?php
 namespace Caller;
 require_once('config/Message.php');
-require_once('user/Error.php');
+require_once('error/Error.php');
 class Caller
 {	
 	public static function run($class = CLASS_DEFAULT, $method = METHOD_DEFAULT, $arguments = array())
 	{
-		$exit = self::call($class, $method, $arguments);
+		$result = self::call($class, $method, $arguments); // Ejecuta la clase y el metodo enviados por parametro
 		
-		if(!$exit !== true) // Si ocurrio un problema en el llamado
+		if(!$result !== true) // Si ocurrio un problema en el llamado
 		{
-			// Si se trata de mostrar un Error o un Estado 404
+			// Control para evitar un bucle infinito en caso no exista el controlador o el encargado de mostrar los errores
 			if(($class == ERROR_CONTROLLER && $method == ERROR_METHOD) || ($class == S404_CONTROLLER && $method == S404_METHOD)
 			)
 			{
-				$message = IS_PRODUCTION ? $exit : Message::s404();
+				$message = IS_PRODUCTION ? $result : Message::s404();
 				die($message);
 			}
-			else { Error::show($exit); }
+			else { Error::show($result); }
 		}
 	}
 	
+    // Funcion encargada de verificar que el controlador pueda ser instanciado, en caso de exito retorna TRUE
+    /// Caso contrario retorna un string, el cual indica el error a solucionar
 	private static function call($class, $method, $arguments)
 	{
 		$controller = $class . CONTROLLER_SUFFIX;
